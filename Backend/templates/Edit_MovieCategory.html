@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="col-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Edit Added Movie Category</h4>
+                  <p class="card-description">
+                    Please Edit The Added Movie Category...!
+                  </p>
+                    {% if messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {% for message in messages %}
+            <strong>{{ message }}</strong>
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}
+                  <form class="forms-sample" method="post" action="{% url 'update_Movie' Movieid=data.id%}" enctype="multipart/form-data">
+                      {% csrf_token %}
+                    <div class="form-group">
+                      <label for="exampleInputName1">Title</label>
+                      <input type="text" class="form-control" id="exampleInputName1" placeholder="Name" name="title" value="{{data.Title}}">
+                    </div>
+                     <div class="form-group">
+                      <label for="exampleTextarea1">Description</label>
+                      <textarea class="form-control" id="exampleTextarea1" rows="4"  name="description">{{data.description}}</textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleTextarea1">Release Date (YYYY-MM-DD):</label>
+                      <textarea class="form-control" id="exampleTextarea1" rows="4"  name="release_date">{% if data.release_date %}{{ data.release_date|date:'Y-m-d' }}{% endif %}</textarea>
+                    </div>
+                     <div class="form-group">
+                      <label for="exampleTextarea1">Genre</label>
+                      <textarea class="form-control" id="exampleTextarea1" rows="4"  name="genre">{{data.genre}}</textarea>
+                    </div>
+                     <div class="form-group">
+                      <label for="exampleTextarea1">Length</label>
+                      <textarea class="form-control" id="exampleTextarea1" rows="4"  name="length">{{data.length}}</textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputName1">Image Card</label>
+                        <img src="{{data.image_card.url}}" width="100px" height="50px" >
+                      <input type="file" class="form-control" name="mv_crd">
+                    </div>
+                      <div class="form-group">
+                      <label for="exampleInputName1">Image Cover</label>
+                        <img src="{{data.image_cover.url}}" width="100px" height="50px" >
+                      <input type="file" class="form-control" name="mv_cvr">
+                    </div>
+                      <div class="form-group">
+                      <label for="exampleInputName1">Views</label>
+                      <input type="text" class="form-control" id="exampleInputName1" placeholder="Views" name="views" value="{{data.movie_views}}">
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2">Update</button>
+                    <button class="btn btn-light">Cancel</button>
+                  </form>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>
+{% endblock %}
